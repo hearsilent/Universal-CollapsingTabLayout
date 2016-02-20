@@ -1,5 +1,6 @@
 package hearsilent.universalcollapsingtoolbarlayouttablayoutexample;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +11,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -89,9 +93,17 @@ public class MainActivity extends AppCompatActivity {
 			public void onStateChanged(AppBarLayout appBarLayout, State state) {
 				if (mToolbarTextView != null) {
 					if (state == State.COLLAPSED) {
-						mToolbarTextView.setAlpha(1);
+						if (Build.VERSION.SDK_INT >= 11) {
+							mToolbarTextView.setAlpha(1);
+						} else {
+							setAlphaForView(mToolbarTextView, 1);
+						}
 					} else if (state == State.EXPANDED) {
-						mToolbarTextView.setAlpha(0);
+						if (Build.VERSION.SDK_INT >= 11) {
+							mToolbarTextView.setAlpha(0);
+						} else {
+							setAlphaForView(mToolbarTextView, 0);
+						}
 					}
 				}
 			}
@@ -100,7 +112,11 @@ public class MainActivity extends AppCompatActivity {
 			public void onOffsetChanged(State state, int offset) {
 				if (mToolbarTextView != null) {
 					if (state == State.IDLE) {
-						mToolbarTextView.setAlpha(Math.abs(offset) / 255.0f);
+						if (Build.VERSION.SDK_INT >= 11) {
+							mToolbarTextView.setAlpha(Math.abs(offset) / 255.0f);
+						} else {
+							setAlphaForView(mToolbarTextView, Math.abs(offset) / 255.0f);
+						}
 					}
 				}
 			}
@@ -150,8 +166,16 @@ public class MainActivity extends AppCompatActivity {
 		mTabLayout.setupWithViewPager(mViewPager);
 	}
 
+	private void setAlphaForView(View v, float alpha) {
+		AlphaAnimation alphaAnimation = new AlphaAnimation(alpha, alpha);
+		alphaAnimation.setDuration(0);
+		alphaAnimation.setFillAfter(true);
+		v.startAnimation(alphaAnimation);
+	}
+
 	private void actionBarResponsive() {
 		int actionBarHeight = Utils.getActionBarHeightPixel(this);
+		Log.d("HearSilent", actionBarHeight + " ");
 		if (actionBarHeight > 0) {
 			mToolbar.getLayoutParams().height = actionBarHeight * 2;
 			mToolbar.requestLayout();

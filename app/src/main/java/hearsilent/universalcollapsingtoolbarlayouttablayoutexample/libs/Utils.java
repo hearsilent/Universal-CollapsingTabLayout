@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
@@ -11,6 +12,8 @@ import android.view.WindowManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.R;
 
 public class Utils {
 
@@ -35,6 +38,9 @@ public class Utils {
 		if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
 			return TypedValue.complexToDimensionPixelSize(tv.data,
 					context.getResources().getDisplayMetrics());
+		} else if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
+			return TypedValue.complexToDimensionPixelSize(tv.data,
+					context.getResources().getDisplayMetrics());
 		} else {
 			return 0;
 		}
@@ -44,7 +50,12 @@ public class Utils {
 		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 		Point size = new Point();
-		display.getSize(size);
+		if (Build.VERSION.SDK_INT >= 13) {
+			display.getSize(size);
+		} else {
+			size.x = display.getWidth();
+			size.y = display.getHeight();
+		}
 		return size;
 	}
 
