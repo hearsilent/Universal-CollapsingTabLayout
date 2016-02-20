@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
@@ -175,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
 
 	private void actionBarResponsive() {
 		int actionBarHeight = Utils.getActionBarHeightPixel(this);
-		Log.d("HearSilent", actionBarHeight + " ");
 		if (actionBarHeight > 0) {
 			mToolbar.getLayoutParams().height = actionBarHeight * 2;
 			mToolbar.requestLayout();
