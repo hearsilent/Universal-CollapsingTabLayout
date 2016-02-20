@@ -1,16 +1,20 @@
 # Universal CollapsingToolbarLayout TabLayout
-CollapsingToolbarLayout with TabLayout 
+
+CollapsingToolbarLayout with TabLayout.
 
 ## Screenshot
+
 ### Extend
 <img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/device-2016-02-20-121446_framed.png" height="500">
 ### Collapsed
 <img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/device-2016-02-20-121512_framed.png" height="500">
 
 # Usage
+
 Just Clone and Build.
 
 # Customization
+
 You can change header view to what you want.
 ```
 <com.flaviofaria.kenburnsview.KenBurnsView
@@ -23,7 +27,12 @@ You can change header view to what you want.
 ```
 
 ## Compatibility
+
 Android GINGERBREAD 2.3+
+
+### Let me know!
+
+I'd be really happy if you sent me links to your projects where you use my component. Just send an email to hear.silent1995@gmail.com And do let me know if you have any questions or suggestion regarding the example. 
 
 ## License
 
