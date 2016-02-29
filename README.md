@@ -3,6 +3,7 @@
 CollapsingToolbarLayout with TabLayout.
 
 ## Screenshot
+<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/screenrecord.gif" height="500">
 
 ### Extend
 <img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/device-2016-02-20-121446_framed.png" height="500">
