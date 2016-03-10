@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +17,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.nineoldandroids.animation.ArgbEvaluator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment;
@@ -97,24 +99,38 @@ public class MainActivity extends AppCompatActivity {
 						} else {
 							setAlphaForView(mToolbarTextView, 1);
 						}
+						mCollapsingToolbar.setContentScrimColor(
+								ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 					} else if (state == State.EXPANDED) {
 						if (Build.VERSION.SDK_INT >= 11) {
 							mToolbarTextView.setAlpha(0);
 						} else {
 							setAlphaForView(mToolbarTextView, 0);
 						}
+						mCollapsingToolbar.setContentScrimColor(ContextCompat
+								.getColor(MainActivity.this, android.R.color.transparent));
 					}
 				}
 			}
 
 			@Override
-			public void onOffsetChanged(State state, int offset) {
+			public void onOffsetChanged(State state, float offset) {
 				if (mToolbarTextView != null) {
 					if (state == State.IDLE) {
 						if (Build.VERSION.SDK_INT >= 11) {
-							mToolbarTextView.setAlpha(Math.abs(offset) / 255.0f);
+							mToolbarTextView.setAlpha(offset);
+							mCollapsingToolbar.setContentScrimColor(
+									(int) new android.animation.ArgbEvaluator().evaluate(offset,
+											ContextCompat.getColor(MainActivity.this,
+													android.R.color.transparent), ContextCompat
+													.getColor(MainActivity.this,
+															R.color.colorPrimary)));
 						} else {
-							setAlphaForView(mToolbarTextView, Math.abs(offset) / 255.0f);
+							setAlphaForView(mToolbarTextView, offset);
+							mCollapsingToolbar.setContentScrimColor((int) new ArgbEvaluator()
+									.evaluate(offset, ContextCompat.getColor(MainActivity.this,
+											android.R.color.transparent), ContextCompat
+											.getColor(MainActivity.this, R.color.colorPrimary)));
 						}
 					}
 				}

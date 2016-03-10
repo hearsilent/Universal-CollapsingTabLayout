@@ -30,10 +30,10 @@ public abstract class AppBarStateChangeListener implements AppBarLayout.OnOffset
 			}
 			mCurrentState = State.IDLE;
 		}
-		onOffsetChanged(mCurrentState, i);
+		onOffsetChanged(mCurrentState, Math.abs(i / (float) appBarLayout.getTotalScrollRange()));
 	}
 
 	public abstract void onStateChanged(AppBarLayout appBarLayout, State state);
 
-	public abstract void onOffsetChanged(State state, int offset);
+	public abstract void onOffsetChanged(State state, float offset);
 }
