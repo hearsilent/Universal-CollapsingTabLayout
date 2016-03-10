@@ -174,8 +174,9 @@ public class MainActivity extends AppCompatActivity {
 
 	private void actionBarResponsive() {
 		int actionBarHeight = Utils.getActionBarHeightPixel(this);
+		int tabHeight = Utils.getTabHeight(this);
 		if (actionBarHeight > 0) {
-			mToolbar.getLayoutParams().height = actionBarHeight * 2;
+			mToolbar.getLayoutParams().height = actionBarHeight + tabHeight;
 			mToolbar.requestLayout();
 		}
 	}
