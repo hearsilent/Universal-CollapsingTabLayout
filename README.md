@@ -17,7 +17,7 @@ Just Clone and Build.
 # Customization
 
 You can change header view to what you want.
-```
+```java
 <com.flaviofaria.kenburnsview.KenBurnsView
 	android:id="@+id/imageView_header"
 	android:layout_width="match_parent"
