@@ -36,7 +36,7 @@ You can change header view to what you want.
 Android GINGERBREAD 2.3+
 
 ## Known issues
-- [ ] Android Support Library 24.2.0 doesn't work successful ( You can down to 24.1.1 ) : http://goo.gl/FMWs37
+- [ ] Android Support Library 24.2.0 doesn't work successful ( You can downgrade to 24.1.1 ) : http://goo.gl/FMWs37
 
 ### Let me know!
 
