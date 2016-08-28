@@ -9,7 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.OnApplyWindowInsetsListener;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.WindowInsetsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 	TabLayout mTabLayout;
 	TextView mToolbarTextView;
 	KenBurnsView mHeaderImageView;
+	View mContainerView;
 
 	ViewPager mViewPager;
 
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 		mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
 		mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
 		mHeaderImageView = (KenBurnsView) findViewById(R.id.imageView_header);
+		mContainerView = findViewById(R.id.view_container);
 
 		mViewPager = (ViewPager) findViewById(R.id.viewPager);
 	}
@@ -144,6 +149,21 @@ public class MainActivity extends AppCompatActivity {
 		mTabLayout.setupWithViewPager(mViewPager);
 		ImageLoader.getInstance().displayImage("https://unsplash.it/1024/768", mHeaderImageView,
 				Utils.getDisplayImageBuilder().build());
+
+		// If your CollapsingToolbarLayout too complex (e.g. ImageView into FrameLayout), then
+		// your status bar may looks so buggy.
+		// You can hotfix by this code when you need to use some 24.2.0's features,
+		// or you can wait for Google fix this (24.2.1), or downgrade to 24.1.1.
+		// The issue: http://goo.gl/FMWs37
+		ViewCompat
+				.setOnApplyWindowInsetsListener(mContainerView, new OnApplyWindowInsetsListener() {
+
+					@Override
+					public WindowInsetsCompat onApplyWindowInsets(View v,
+					                                              WindowInsetsCompat insets) {
+						return insets.consumeSystemWindowInsets();
+					}
+				});
 	}
 
 	private void setAlphaForView(View v, float alpha) {

@@ -22,13 +22,20 @@
 			app:layout_scrollFlags="scroll|exitUntilCollapsed"
 			app:statusBarScrim="@android:color/transparent">
 
-			<com.flaviofaria.kenburnsview.KenBurnsView
-				android:id="@+id/imageView_header"
+			<FrameLayout
+				android:id="@+id/view_container"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:contentDescription="@null"
+				android:layout_height="wrap_content"
 				android:fitsSystemWindows="true"
-				app:layout_collapseMode="parallax"/>
+				app:layout_collapseMode="parallax">
+
+				<com.flaviofaria.kenburnsview.KenBurnsView
+					android:id="@+id/imageView_header"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:contentDescription="@null"
+					android:fitsSystemWindows="true"/>
+			</FrameLayout>
 
 			<android.support.v7.widget.Toolbar
 				android:id="@+id/toolbar"
