@@ -19,7 +19,8 @@
 			android:layout_height="226.5dp"
 			android:fitsSystemWindows="true"
 			app:contentScrim="?attr/colorPrimary"
-			app:layout_scrollFlags="scroll|exitUntilCollapsed">
+			app:layout_scrollFlags="scroll|exitUntilCollapsed"
+			app:statusBarScrim="@android:color/transparent">
 
 			<com.flaviofaria.kenburnsview.KenBurnsView
 				android:id="@+id/imageView_header"

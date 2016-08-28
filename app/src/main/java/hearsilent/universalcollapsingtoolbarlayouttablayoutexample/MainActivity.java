@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 		mToolbarTextView.setText("Demo");
 		actionBarResponsive();
 		mAppBarLayout.addOnOffsetChangedListener(new AppBarStateChangeListener() {
+
 			@Override
 			public void onStateChanged(AppBarLayout appBarLayout, State state) {
 				if (mToolbarTextView != null) {
@@ -140,45 +141,9 @@ public class MainActivity extends AppCompatActivity {
 		mAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 		mViewPager.setOffscreenPageLimit(mAdapter.getCount());
 		mViewPager.setAdapter(mAdapter);
-		mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-			@Override
-			public void onPageScrolled(int position, float positionOffset,
-			                           int positionOffsetPixels) {
-				switch (position) {
-					case 0:
-						ImageLoader.getInstance().displayImage(
-								"https://fs01.androidpit.info/a/63/0e/android-l-wallpapers-630ea6-h900.jpg",
-								mHeaderImageView, Utils.getDisplayImageBuilder().build());
-						break;
-					case 1:
-						ImageLoader.getInstance().displayImage(
-								"http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2014/06/wallpaper_51.jpg",
-								mHeaderImageView, Utils.getDisplayImageBuilder().build());
-						break;
-					case 2:
-						ImageLoader.getInstance().displayImage(
-								"http://www.droid-life.com/wp-content/uploads/2014/10/lollipop-wallpapers10.jpg",
-								mHeaderImageView, Utils.getDisplayImageBuilder().build());
-						break;
-					case 3:
-						ImageLoader.getInstance().displayImage(
-								"http://www.tothemobile.com/wp-content/uploads/2014/07/original.jpg",
-								mHeaderImageView, Utils.getDisplayImageBuilder().build());
-						break;
-				}
-			}
-
-			@Override
-			public void onPageSelected(int position) {
-
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-
-			}
-		});
 		mTabLayout.setupWithViewPager(mViewPager);
+		ImageLoader.getInstance().displayImage("https://unsplash.it/1024/768", mHeaderImageView,
+				Utils.getDisplayImageBuilder().build());
 	}
 
 	private void setAlphaForView(View v, float alpha) {
