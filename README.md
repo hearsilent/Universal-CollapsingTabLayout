@@ -1,6 +1,6 @@
 # Universal CollapsingToolbarLayout TabLayout
 [![GitHub release](https://img.shields.io/github/release/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example)
-[![license](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/blob/master/LICENSE)
 
 CollapsingToolbarLayout with TabLayout.
 
