@@ -22,15 +22,17 @@ Just Clone and Build.
 
 ## Customization
 
-You can change header view to what you want.
+You can change your view into container view.
 ```java
-<com.flaviofaria.kenburnsview.KenBurnsView
-	android:id="@+id/imageView_header"
+<FrameLayout
+	android:id="@+id/view_container"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:contentDescription="@null"
+	android:layout_height="wrap_content"
 	android:fitsSystemWindows="true"
-	app:layout_collapseMode="parallax"/>
+	app:layout_collapseMode="parallax">
+
+	...
+</FrameLayout>
 ```
 
 ## Compatibility
