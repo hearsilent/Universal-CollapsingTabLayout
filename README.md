@@ -1,16 +1,16 @@
 # Universal CollapsingTabLayout
-[![GitHub release](https://img.shields.io/github/release/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example)
-[![license](https://img.shields.io/github/license/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/hearsilent/Universal-CollapsingTabLayout.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingTabLayout)
+[![license](https://img.shields.io/github/license/hearsilent/Universal-CollapsingTabLayout.svg?maxAge=2592000)](https://github.com/hearsilent/Universal-CollapsingTabLayout/blob/master/LICENSE)
 
 CollapsingToolbarLayout with TabLayout.
 
 ## Screenshot
-<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/screenrecord.gif" height="500">
+<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingTabLayout/master/screenshots/screenrecord.gif" height="500">
 
-### Extend
-<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/device-2016-08-28-230914_framed.png" height="500">
+### Expanded
+<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingTabLayout/master/screenshots/device-2016-08-28-230914_framed.png" height="500">
 ### Collapsed
-<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingToolbarLayout-TabLayout-Example/master/screenshots/device-2016-08-28-230929_framed.png" height="500">
+<img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingTabLayout/master/screenshots/device-2016-08-28-230929_framed.png" height="500">
 
 ## Usage
 
