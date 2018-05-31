@@ -9,6 +9,7 @@ CollapsingToolbarLayout with TabLayout.
 
 ### Expanded
 <img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingTabLayout/master/screenshots/device-2016-08-28-230914_framed.png" height="500">
+
 ### Collapsed
 <img src="https://raw.githubusercontent.com/hearsilent/Universal-CollapsingTabLayout/master/screenshots/device-2016-08-28-230929_framed.png" height="500">
 
@@ -23,7 +24,7 @@ Just Clone and Build.
 ## Customization
 
 You can change your view into container view.
-```java
+```xml
 <FrameLayout
 	android:id="@+id/view_container"
 	android:layout_width="match_parent"
