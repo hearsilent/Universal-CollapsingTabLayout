@@ -2,11 +2,6 @@ package hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +10,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.R;
 
 public class DemoFragment extends Fragment {
@@ -42,7 +43,7 @@ public class DemoFragment extends Fragment {
 	}
 
 	@Override
-	public void onAttach(Context context) {
+	public void onAttach(@NonNull Context context) {
 		super.onAttach(context);
 		mContext = context;
 	}
@@ -55,7 +56,7 @@ public class DemoFragment extends Fragment {
 	}
 
 	private void findViews() {
-		mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+		mRecyclerView = mRootView.findViewById(R.id.recyclerView);
 	}
 
 	private void setUpViews() {
@@ -75,10 +76,11 @@ public class DemoFragment extends Fragment {
 			public DemoViewHolder(View view) {
 				super(view);
 
-				textView = (TextView) view.findViewById(R.id.textView);
+				textView = view.findViewById(R.id.textView);
 			}
 		}
 
+		@NonNull
 		@Override
 		public DemoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 			View view = LayoutInflater.from(parent.getContext())

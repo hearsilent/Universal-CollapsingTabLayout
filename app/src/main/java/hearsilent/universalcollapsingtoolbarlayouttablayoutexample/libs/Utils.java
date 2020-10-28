@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
-import android.os.Build;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.WindowManager;
@@ -54,12 +53,7 @@ public class Utils {
 		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 		Point size = new Point();
-		if (Build.VERSION.SDK_INT >= 13) {
-			display.getSize(size);
-		} else {
-			size.x = display.getWidth();
-			size.y = display.getHeight();
-		}
+		display.getSize(size);
 		return size;
 	}
 
