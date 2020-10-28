@@ -1,28 +1,27 @@
 package hearsilent.universalcollapsingtoolbarlayouttablayoutexample;
 
-import android.os.Build;
+import android.animation.ArgbEvaluator;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.OnApplyWindowInsetsListener;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.WindowInsetsCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.nineoldandroids.animation.ArgbEvaluator;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.tabs.TabLayout;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment;
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.AppBarStateChangeListener;
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.Utils;
@@ -51,15 +50,15 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void findViews() {
-		mToolbar = (Toolbar) findViewById(R.id.toolbar);
-		mToolbarTextView = (TextView) findViewById(R.id.toolbar_title);
-		mCollapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-		mAppBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
-		mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
-		mHeaderImageView = (KenBurnsView) findViewById(R.id.imageView_header);
+		mToolbar = findViewById(R.id.toolbar);
+		mToolbarTextView = findViewById(R.id.toolbar_title);
+		mCollapsingToolbar = findViewById(R.id.collapsing_toolbar);
+		mAppBarLayout = findViewById(R.id.app_bar);
+		mTabLayout = findViewById(R.id.tabLayout);
+		mHeaderImageView = findViewById(R.id.imageView_header);
 		mContainerView = findViewById(R.id.view_container);
 
-		mViewPager = (ViewPager) findViewById(R.id.viewPager);
+		mViewPager = findViewById(R.id.viewPager);
 	}
 
 	@Override
@@ -100,19 +99,11 @@ public class MainActivity extends AppCompatActivity {
 			public void onStateChanged(AppBarLayout appBarLayout, State state) {
 				if (mToolbarTextView != null) {
 					if (state == State.COLLAPSED) {
-						if (Build.VERSION.SDK_INT >= 11) {
-							mToolbarTextView.setAlpha(1);
-						} else {
-							setAlphaForView(mToolbarTextView, 1);
-						}
+						mToolbarTextView.setAlpha(1);
 						mCollapsingToolbar.setContentScrimColor(
 								ContextCompat.getColor(MainActivity.this, R.color.colorPrimary));
 					} else if (state == State.EXPANDED) {
-						if (Build.VERSION.SDK_INT >= 11) {
-							mToolbarTextView.setAlpha(0);
-						} else {
-							setAlphaForView(mToolbarTextView, 0);
-						}
+						mToolbarTextView.setAlpha(0);
 						mCollapsingToolbar.setContentScrimColor(ContextCompat
 								.getColor(MainActivity.this, android.R.color.transparent));
 					}
@@ -123,21 +114,12 @@ public class MainActivity extends AppCompatActivity {
 			public void onOffsetChanged(State state, float offset) {
 				if (mToolbarTextView != null) {
 					if (state == State.IDLE) {
-						if (Build.VERSION.SDK_INT >= 11) {
-							mToolbarTextView.setAlpha(offset);
-							mCollapsingToolbar.setContentScrimColor(
-									(int) new android.animation.ArgbEvaluator().evaluate(offset,
-											ContextCompat.getColor(MainActivity.this,
-													android.R.color.transparent), ContextCompat
-													.getColor(MainActivity.this,
-															R.color.colorPrimary)));
-						} else {
-							setAlphaForView(mToolbarTextView, offset);
-							mCollapsingToolbar.setContentScrimColor((int) new ArgbEvaluator()
-									.evaluate(offset, ContextCompat.getColor(MainActivity.this,
-											android.R.color.transparent), ContextCompat
-											.getColor(MainActivity.this, R.color.colorPrimary)));
-						}
+						mToolbarTextView.setAlpha(offset);
+						mCollapsingToolbar.setContentScrimColor((int) new ArgbEvaluator()
+								.evaluate(offset, ContextCompat
+												.getColor(MainActivity.this, android.R.color.transparent),
+										ContextCompat.getColor(MainActivity.this,
+												R.color.colorPrimary)));
 					}
 				}
 			}
@@ -166,13 +148,6 @@ public class MainActivity extends AppCompatActivity {
 				});
 	}
 
-	private void setAlphaForView(View v, float alpha) {
-		AlphaAnimation alphaAnimation = new AlphaAnimation(alpha, alpha);
-		alphaAnimation.setDuration(0);
-		alphaAnimation.setFillAfter(true);
-		v.startAnimation(alphaAnimation);
-	}
-
 	private void actionBarResponsive() {
 		int actionBarHeight = Utils.getActionBarHeightPixel(this);
 		int tabHeight = Utils.getTabHeight(this);
@@ -182,12 +157,13 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	private class ViewPagerAdapter extends FragmentPagerAdapter {
+	private static class ViewPagerAdapter extends FragmentPagerAdapter {
 
 		public ViewPagerAdapter(FragmentManager fragmentManager) {
-			super(fragmentManager);
+			super(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
 		}
 
+		@NonNull
 		@Override
 		public Fragment getItem(int position) {
 			return new DemoFragment();
