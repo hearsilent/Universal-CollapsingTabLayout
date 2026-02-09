@@ -9,8 +9,8 @@ android {
         applicationId "hearsilent.universalcollapsingtoolbarlayouttablayoutexample"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 110
-        versionName "1.1.0"
+        versionCode 200
+        versionName "2.0.0"
     }
     buildTypes {
         release {
