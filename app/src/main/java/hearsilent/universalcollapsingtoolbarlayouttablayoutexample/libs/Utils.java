@@ -1,11 +1,15 @@
 package hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -23,21 +27,25 @@ public class Utils {
 	}
 
 	public static int getStatusBarHeightPixel(Context context) {
-		int result = 0;
-		int resourceId =
-				context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-		if (resourceId > 0) {
-			result = context.getResources().getDimensionPixelSize(resourceId);
+		if (context instanceof Activity) {
+			Rect rectangle = new Rect();
+			Window window = ((Activity) context).getWindow();
+			window.getDecorView().getWindowVisibleDisplayFrame(rectangle);
+			return rectangle.top;
+		} else {
+			int result = 0;
+			@SuppressLint({"InternalInsetResource", "DiscouragedApi"}) int resourceId =
+					context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+			if (resourceId > 0) {
+				result = context.getResources().getDimensionPixelSize(resourceId);
+			}
+			return result;
 		}
-		return result;
 	}
 
 	public static int getActionBarHeightPixel(Context context) {
 		TypedValue tv = new TypedValue();
 		if (context.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-			return TypedValue.complexToDimensionPixelSize(tv.data,
-					context.getResources().getDisplayMetrics());
-		} else if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) {
 			return TypedValue.complexToDimensionPixelSize(tv.data,
 					context.getResources().getDisplayMetrics());
 		} else {
@@ -50,8 +58,8 @@ public class Utils {
 	}
 
 	public static Point getDisplayDimen(Context context) {
-		Display display = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
-				.getDefaultDisplay();
+		Display display = ((WindowManager) context.getSystemService(
+				Context.WINDOW_SERVICE)).getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
 		return size;

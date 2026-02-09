@@ -1,29 +1,30 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 36
 
+    namespace 'hearsilent.universalcollapsingtoolbarlayouttablayoutexample'
     defaultConfig {
         applicationId "hearsilent.universalcollapsingtoolbarlayouttablayoutexample"
-        minSdkVersion 14
-        targetSdkVersion 30
+        minSdkVersion 21
+        targetSdkVersion 36
         versionCode 110
         versionName "1.1.0"
     }
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.recyclerview:recyclerview:1.4.0'
+    implementation 'com.google.android.material:material:1.13.0'
     implementation 'com.flaviofaria:kenburnsview:1.0.7'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.2'
 }
