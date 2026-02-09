@@ -2,17 +2,16 @@ package hearsilent.universalcollapsingtoolbarlayouttablayoutexample
 
 import android.animation.ArgbEvaluator
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import coil3.imageLoader
 import coil3.load
 import coil3.memory.MemoryCache
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.databinding.ActivityMainBinding
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.extensions.statusHeight
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                     Utils.getDisplayDimen(this).x) * 9 / 16 + insets.statusHeight
             mBinding.collapsingToolbar.requestLayout()
 
-            Log.wtf("HearSilent", "OKKKK")
             insets
         }
 
@@ -98,9 +96,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        mAdapter = ViewPagerAdapter(supportFragmentManager)
-        mBinding.viewPager.setAdapter(mAdapter)
-        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
+        mAdapter = ViewPagerAdapter(this)
+        mBinding.viewPager.adapter = mAdapter
+        TabLayoutMediator(mBinding.tabLayout, mBinding.viewPager) { tab, position ->
+            tab.text = "Demo $position"
+        }.attach()
 
         val imageLoader = imageLoader
         val url = "https://unsplash.it/1024/768"
@@ -118,18 +118,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class ViewPagerAdapter(fragmentManager: FragmentManager) :
-        FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        override fun getItem(position: Int): Fragment {
+    class ViewPagerAdapter(activity: MainActivity) : FragmentStateAdapter(activity) {
+
+        override fun createFragment(position: Int): Fragment {
             return DemoFragment()
         }
 
-        override fun getCount(): Int {
+        override fun getItemCount(): Int {
             return 4
-        }
-
-        override fun getPageTitle(position: Int): CharSequence {
-            return "Demo $position"
         }
     }
 }
