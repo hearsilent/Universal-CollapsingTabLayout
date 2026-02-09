@@ -1,0 +1,135 @@
+package hearsilent.universalcollapsingtoolbarlayouttablayoutexample
+
+import android.animation.ArgbEvaluator
+import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import coil3.imageLoader
+import coil3.load
+import coil3.memory.MemoryCache
+import com.google.android.material.appbar.AppBarLayout
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.databinding.ActivityMainBinding
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.extensions.statusHeight
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.AppBarStateChangeListener
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.Utils
+
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var mBinding: ActivityMainBinding
+
+    private lateinit var mAdapter: ViewPagerAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+
+        setUpViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mBinding.imageViewHeader.resume()
+    }
+
+    override fun onPause() {
+        mBinding.imageViewHeader.pause()
+        super.onPause()
+    }
+
+    private fun setUpViews() {
+        setSupportActionBar(mBinding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+        }
+        mBinding.collapsingToolbar.isTitleEnabled = false
+
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, insets ->
+            mBinding.collapsingToolbar.layoutParams.height =
+                (if (Utils.isLand(this)) Utils.getDisplayDimen(this).y else
+                    Utils.getDisplayDimen(this).x) * 9 / 16 + insets.statusHeight
+            mBinding.collapsingToolbar.requestLayout()
+
+            Log.wtf("HearSilent", "OKKKK")
+            insets
+        }
+
+        // TODO : Hack for CollapsingToolbarLayout
+        mBinding.toolbarTitle.setText(R.string.demo)
+        actionBarResponsive()
+        mBinding.appBar.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout?, state: State?) {
+                if (state == State.COLLAPSED) {
+                    mBinding.toolbarTitle.alpha = 1f
+                    mBinding.collapsingToolbar.setContentScrimColor(
+                        ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
+                    )
+                } else if (state == State.EXPANDED) {
+                    mBinding.toolbarTitle.alpha = 0f
+                    mBinding.collapsingToolbar.setContentScrimColor(
+                        ContextCompat
+                            .getColor(this@MainActivity, android.R.color.transparent)
+                    )
+                }
+            }
+
+            override fun onOffsetChanged(state: State?, offset: Float) {
+                if (state == State.IDLE) {
+                    mBinding.toolbarTitle.alpha = offset
+                    mBinding.collapsingToolbar.setContentScrimColor(
+                        ArgbEvaluator()
+                            .evaluate(
+                                offset, ContextCompat
+                                    .getColor(this@MainActivity, android.R.color.transparent),
+                                ContextCompat.getColor(
+                                    this@MainActivity,
+                                    R.color.colorPrimary
+                                )
+                            ) as Int
+                    )
+                }
+            }
+        })
+
+        mAdapter = ViewPagerAdapter(supportFragmentManager)
+        mBinding.viewPager.setAdapter(mAdapter)
+        mBinding.tabLayout.setupWithViewPager(mBinding.viewPager)
+
+        val imageLoader = imageLoader
+        val url = "https://unsplash.it/1024/768"
+        imageLoader.diskCache?.remove(url)
+        imageLoader.memoryCache?.remove(MemoryCache.Key(url))
+        mBinding.imageViewHeader.load(url)
+    }
+
+    private fun actionBarResponsive() {
+        val actionBarHeight = Utils.getActionBarHeightPixel(this)
+        val tabHeight = Utils.getTabHeight(this)
+        if (actionBarHeight > 0) {
+            mBinding.toolbar.layoutParams.height = actionBarHeight + tabHeight
+            mBinding.toolbar.requestLayout()
+        }
+    }
+
+    class ViewPagerAdapter(fragmentManager: FragmentManager) :
+        FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        override fun getItem(position: Int): Fragment {
+            return DemoFragment()
+        }
+
+        override fun getCount(): Int {
+            return 4
+        }
+
+        override fun getPageTitle(position: Int): CharSequence {
+            return "Demo $position"
+        }
+    }
+}

@@ -24,7 +24,7 @@
 			<FrameLayout
 				android:id="@+id/view_container"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:fitsSystemWindows="true"
 				app:layout_collapseMode="parallax">
 
@@ -32,8 +32,7 @@
 					android:id="@+id/imageView_header"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:contentDescription="@null"
-					android:fitsSystemWindows="true"/>
+					android:contentDescription="@null"/>
 			</FrameLayout>
 
 			<androidx.appcompat.widget.Toolbar

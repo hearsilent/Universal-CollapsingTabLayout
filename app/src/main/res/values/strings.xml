@@ -1,3 +1,4 @@
 <resources>
 	<string name="app_name">Universal CollapsingToolbarLayout TabLayout Example</string>
+	<string name="demo">Demo</string>
 </resources>
