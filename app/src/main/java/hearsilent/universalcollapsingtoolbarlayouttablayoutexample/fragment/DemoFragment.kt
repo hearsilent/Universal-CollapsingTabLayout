@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.R
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.databinding.FragmentDemoBinding
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.databinding.ListDemoBinding
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.extensions.navigationHeight
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment.DemoAdapter.DemoViewHolder
 
 class DemoFragment : Fragment() {
@@ -41,6 +43,11 @@ class DemoFragment : Fragment() {
     }
 
     private fun setUpViews() {
+        ViewCompat.setOnApplyWindowInsetsListener(mBinding.root) { _, insets ->
+            mBinding.recyclerView.setPadding(0, 0, 0, insets.navigationHeight)
+            insets
+        }
+
         mAdapter = DemoAdapter()
         mBinding.recyclerView.setHasFixedSize(true)
         mBinding.recyclerView.setItemAnimator(DefaultItemAnimator())

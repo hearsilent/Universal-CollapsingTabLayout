@@ -13,6 +13,7 @@ import coil3.memory.MemoryCache
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.databinding.ActivityMainBinding
+import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.extensions.statusHeight
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.fragment.DemoFragment
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.AppBarStateChangeListener
 import hearsilent.universalcollapsingtoolbarlayouttablayoutexample.libs.Utils
@@ -52,7 +53,8 @@ class MainActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { _, insets ->
             val displayDimen = Utils.getDisplayDimen(this)
             mBinding.collapsingToolbar.layoutParams.height =
-                (if (Utils.isLand(this)) displayDimen.y else displayDimen.x) * 9 / 16
+                (if (Utils.isLand(this)) displayDimen.y else displayDimen.x) * 9 / 16 +
+                        insets.statusHeight
             mBinding.collapsingToolbar.requestLayout()
 
             insets
